@@ -1,0 +1,29 @@
+.InfoContainer {
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    padding: 9px;
+    min-width: 400px;
+    border: 3px solid #717171;
+    background-color: rgba( #414141, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 6px;
+    flex-direction: column;
+
+    .ItemName {
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        text-shadow: 0px 0px 2px 18px white;
+        padding: 0px 5px;
+        border-bottom: 3px solid #717171;
+    }
+
+    .ItemInfo {
+        color: white;
+        font-size: 18px;
+    }
+
+    &.hidden {
+        display: none;
+    }
+}

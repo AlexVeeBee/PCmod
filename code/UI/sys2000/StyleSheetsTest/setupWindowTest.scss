@@ -1,0 +1,27 @@
+.waiting {
+    flex-direction: column;
+    .setupBanner {
+        background-color: white;
+        min-height: 69px;
+
+        .LeftIMG {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        image {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100%;
+        }
+    }
+    .ps {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+}
