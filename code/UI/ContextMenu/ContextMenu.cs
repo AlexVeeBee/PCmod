@@ -10,6 +10,8 @@ namespace PCMod.ui
 	public partial class NewContextMenu : Panel
 	{
 		public Panel ContextMenu;
+		public Panel OutsideBox;
+
 
 		private float _Minwidth;
 
@@ -25,14 +27,17 @@ namespace PCMod.ui
 		{
 			StyleSheet.Load( "UI/ContextMenu/ContextMenu.scss" );
 			ContextMenu = Add.Panel("menu");
-
+			OutsideBox = Add.Panel( "OutsideBox" );
 			Pos = MousePosition;
 
-			AddEventListener( "onClick", () => Delete() );
+			OutsideBox.AddEventListener( "onClick", () => {
+				Delete();
+			} );
 		}
 
 		public void AddButtonItem(string Text, Action OnClick)
 		{
+			
 			Button btm = ContextMenu.Add.Button( Text , "MenuItem");
 
 			btm.AddEventListener( "onClick", () => { OnClick();
@@ -40,6 +45,52 @@ namespace PCMod.ui
 			} );
 		}
 
+		public void AddSubMenu( string Text, ContextSubmenu Items  )
+		{
+			//Button btm = ContextMenu.Add.Button( Text, "SubMenuItem" );
+			Vector2 Pos = MousePosition;
+			Log.Info( "DEBUG: Style width:" );
+			Log.Info( ContextMenu.Style.Width );
+			//Items.Style.Set($"left: {}px; top: {Pos.y}px");
+			Button btm = ContextMenu.Add.Button( Text , "SubMenuItem" );
+			
+			btm.AddEventListener( "onClick", () =>
+			{
+				AddChild( Items );
+			} );
+
+			/*
+			btm.AddEventListener( "mouseenter", () => {
+				OnClick();
+			} );*/
+		}
+	}
+	public partial class ContextSubmenu : Panel
+	{
+		public Panel Menu;
+		public ContextSubmenu()
+		{
+			Log.Info( "I am now rendered" );
+
+			Menu = Add.Panel( "menu" );
+			Style.Set( $" z-index: 2; position: absolute;" );
+			Menu.Style.Set( $"background-color: red; padding: 12px;" );
+
+			Style.Set( $"left: {MousePosition.x}px; top: {MousePosition.y}px" );
+			
+			AddChild( Menu );
+		}
+		public void AddSubMenuItem( string Text, Action OnClick )
+		{
+			Log.Info( $"Added Submenu; TEXT: {Text}" );
+
+			Button btm = Menu.Add.Button( Text, "MenuItem" );
+
+			btm.AddEventListener( "onClick", () => {
+				OnClick();
+				Delete();
+			} );
+		}
 	}
 }
 namespace PCMod.ui.ContextMenuComps

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
+using PCMod.pc.ui;
+
 namespace PCMod.pc.monitors.test {
 	public partial class MonitorTest : AnimEntity
 	{
@@ -29,16 +31,34 @@ namespace PCMod.pc.monitors.test {
 		public MonitorTest() { 
 		}
 
+		ScreenUI ScreenUI;
+
 		public override void Spawn()
 		{
 			SetModel( "models/monitor_dellvmdl.vmdl" );
 			Tags.Add( "Monitor" );
+
+			SpawnUI();
 		}
 
+		[ClientRpc]
+		public void SpawnUI()
+		{
+			ScreenUI = new ScreenUI();
+			ScreenUI.Transform = this.Transform;
+		}
 
 		public void interact()
 		{
 			Log.Info( "Monitor Interact" );
+		}
+
+		public override void Simulate( Client cl )
+		{
+			base.Simulate( cl );
+
+			ScreenUI.Position = this.Position;
+			Log.Info( "THIS SHIT IS RUNNING OR BROKEN LOL XD" );
 		}
 	}
 }

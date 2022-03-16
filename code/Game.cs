@@ -27,15 +27,18 @@ namespace Sandbox
 	public partial class MyGame : Sandbox.Game
 	{
 		public GameUI GameUI;
+		public SpawnUI SpawnUI;
 
 		public MyGame()
 		{
+			if(IsServer)
+			{
+				SpawnUI = new SpawnUI();
+			}
 			if(IsClient)
 			{
 				GameUI = new GameUI();
 			}
-
-
 		}
 
 		/// <summary>
@@ -98,7 +101,7 @@ namespace Sandbox
 			ent.SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 		}
 
-		[ServerCmd( "spawn_Montest" )]
+		[ServerCmd( "spawn_Montest" ), ClientRpc]
 		public static void SpawnMonitorTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -134,7 +137,7 @@ namespace Sandbox
 
 			//MonitorTest
 		}
-		[ServerCmd( "spawn_keybtest" )]
+		[ServerCmd( "spawn_keybtest" ), ClientRpc]
 		public static void SpawnKeyboardTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -170,7 +173,9 @@ namespace Sandbox
 
 			//MonitorTest
 		}
-		[ServerCmd( "spawn_towertest" )]
+
+
+		[ServerCmd( "spawn_towertest" ), ClientRpc]
 		public static void SpawnTowerTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -197,14 +202,17 @@ namespace Sandbox
 		[Event.Hotload]
 		public void HotloadUIgame()
 		{
+			if ( IsServer )
+			{
+				SpawnUI.Delete();
+				SpawnUI = new SpawnUI();
+			}
 			if ( IsClient )
 			{
 				if ( true )
 				{
-				if( GameUI.IsValid() ) {
 					GameUI.Delete();
 					GameUI = new GameUI();
-				}
 				}
 			}
 		}

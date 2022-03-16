@@ -31,20 +31,9 @@ public class SpawnMenu : Panel
 		props = menu.Add.Panel( "props" );
 			pr_tabs = props.Add.Panel( "tabs" );
 				pr_tabs.Add.Button("presets", "tab");
-				pr_tabs.Add.Button( "Parts", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				pr_tabs.Add.Button( "Caces", "tab");
-				Button conMen = pr_tabs.Add.Button( "Others ( context menu )", "tab");
+				pr_tabs.Add.Button( "Computer Parts", "tab");
+				pr_tabs.Add.Button( "Computer Accessories", "tab");
+		Button conMen = pr_tabs.Add.Button( "Debug Spawn", "tab");
 		pr_items = props.Add.Panel( "items" );
 			pr_items.Add.Panel( "item" );
 			pr_items.Add.Panel( "item" );
@@ -70,6 +59,13 @@ public class SpawnMenu : Panel
 			{
 				ConsoleSystem.Run( "spawn_towertest" );
 			} );
+
+				ContextSubmenu m2 = new ContextSubmenu();
+				m2.AddSubMenuItem( "Keybind settings", () => { } );
+				m2.AddSubMenuItem( "Audio Settings", () => { } );
+				m2.AddSubMenuItem( "More Settings", () => { } );
+				m2.AddSubMenuItem( "WTF settings", () => { } );
+			m.AddSubMenu( "Another Context Menu", m2 );
 
 			AddChild( m );
 		} );

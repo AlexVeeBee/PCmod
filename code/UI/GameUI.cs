@@ -9,15 +9,15 @@ using PCMod.ui.PartsInfoUI;
 
 namespace PCMod.ui
 {
+	[Library]
 	public partial class GameUI : HudEntity<RootPanel>
 	{
 		//WorldPanel worldPanel = new WorldGameUI();
-		public GameUI ()
+		public GameUI()
 		{
 			//RootPanel.AddChild<Sys2000>();
 			RootPanel.AddChild<crosshair>();
 			RootPanel.AddChild<PartsInfo>();
-			RootPanel.AddChild<SpawnMenu>();
 			RootPanel.AddChild<VoiceList>();
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
@@ -30,6 +30,19 @@ namespace PCMod.ui
 		//	worldPanel = new WorldGameUI();
 		//}
 
+	}
+	[Library]
+	public partial class SpawnUI : HudEntity<RootPanel>
+	{
+		public SpawnUI()
+		{
+			Log.Info( "bedore the if statement" );
+			if ( !IsClient )
+				return;
+			Log.Info( "I am client" );
+
+			RootPanel.AddChild<SpawnMenu>();
+		}
 	}
 }
 namespace PCMod.WorldUI
