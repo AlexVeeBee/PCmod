@@ -41,6 +41,11 @@ namespace PCMod.ui
 				return;
 			Log.Info( "I am client" );
 
+			RootPanel.AddChild<crosshair>();
+			RootPanel.AddChild<PartsInfo>();
+			RootPanel.AddChild<VoiceList>();
+			RootPanel.AddChild<ChatBox>();
+			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
 			RootPanel.AddChild<SpawnMenu>();
 		}
 	}

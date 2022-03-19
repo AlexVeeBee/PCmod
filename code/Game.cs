@@ -34,10 +34,7 @@ namespace Sandbox
 			if(IsServer)
 			{
 				SpawnUI = new SpawnUI();
-			}
-			if(IsClient)
-			{
-				GameUI = new GameUI();
+				SpawnUI.Parent = this;
 			}
 		}
 
@@ -101,7 +98,7 @@ namespace Sandbox
 			ent.SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 		}
 
-		[ServerCmd( "spawn_Montest" ), ClientRpc]
+		[ServerCmd( "spawn_Montest" )]
 		public static void SpawnMonitorTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -137,7 +134,7 @@ namespace Sandbox
 
 			//MonitorTest
 		}
-		[ServerCmd( "spawn_keybtest" ), ClientRpc]
+		[ServerCmd( "spawn_keybtest" )]
 		public static void SpawnKeyboardTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -175,7 +172,7 @@ namespace Sandbox
 		}
 
 
-		[ServerCmd( "spawn_towertest" ), ClientRpc]
+		[ServerCmd( "spawn_towertest" )]
 		public static void SpawnTowerTest()
 		{
 			var player = ConsoleSystem.Caller?.Pawn;
@@ -202,18 +199,19 @@ namespace Sandbox
 		[Event.Hotload]
 		public void HotloadUIgame()
 		{
+			//if ( IsClient )
+			//{
+			//	if ( true )
+			//	{
+			//		GameUI.Delete();
+			//		GameUI = new GameUI();
+			//	}
+			//}
 			if ( IsServer )
 			{
 				SpawnUI.Delete();
 				SpawnUI = new SpawnUI();
-			}
-			if ( IsClient )
-			{
-				if ( true )
-				{
-					GameUI.Delete();
-					GameUI = new GameUI();
-				}
+				SpawnUI.Parent = this;
 			}
 		}
 	}
